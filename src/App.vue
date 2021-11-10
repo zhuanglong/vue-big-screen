@@ -7,8 +7,3 @@
 <template>
   <Home />
 </template>
-
-<style>
-  #app {
-  }
-</style>
