@@ -16,9 +16,15 @@ export default function useSize() {
     const wh = document.documentElement.clientHeight;
     // 当前屏幕比例
     const realRatio = ww / wh;
+
     // 缩放比例
-    const scaleRate = realRatio < designRatio ? ww / designWidth : wh / designHeight;
-    appRef.value.style.transform = `scale(${scaleRate}) translate(-50%, -50%)`;
+    // 方案1，始终在一屏内展示内容，为了保证正常比例，内容会被压缩导致左右留白
+    const scaleRate1 = realRatio < designRatio ? ww / designWidth : wh / designHeight;
+    // 方案2，X轴内容占满，Y轴内容超出则滚动
+    const scaleRate2 = ww / designWidth;
+
+    // 设置缩放
+    appRef.value.style.transform = `scale(${scaleRate1}) translate(-50%, 0%)`;
   };
 
   const resize = () => {

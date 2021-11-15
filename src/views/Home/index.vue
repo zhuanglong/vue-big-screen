@@ -35,15 +35,15 @@
 
     .main-view {
       position: absolute;
-      top: 50%;
       left: 50%;
       width: 1920px;
       height: 1080px;
-      transform: scale(1) translate(-50%, -50%);
+      transform: scale(1) translate(-50%, 0%);
       transform-origin: left top;
       background-image: url('../../assets/pageBg.png');
       background-size: cover;
       background-position: center center;
+      transition: all .3s linear;
     }
   }
 </style>
