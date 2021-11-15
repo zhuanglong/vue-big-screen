@@ -1,7 +1,10 @@
 import './design/normalize.css';
 import './design/global.scss';
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import 'virtual:svg-icons-register';
 
-createApp(App).mount('#app')
+import { createApp } from 'vue';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+
