@@ -4,7 +4,10 @@
       <BoxTitle title="今日流量态势" />
       <TrafficSituation />
     </div>
-    <div class="chart-wrapper"></div>
+    <div class="chart-wrapper">
+      <BoxTitle title="用户数据状态" />
+      <UserSituation />
+    </div>
   </div>
 </template>
 
@@ -13,6 +16,7 @@
 
   import BoxTitle from '../../../components/BoxTitle.vue';
   import TrafficSituation from './TrafficSituation/index.vue';
+  import UserSituation from './UserSituation/index.vue';
 </script>
 
 <style lang="scss" scoped>

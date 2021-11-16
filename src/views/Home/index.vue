@@ -4,7 +4,8 @@
       <Section1 />
       <div class="body">
         <Section2 />
-        <!-- <Section3 /> -->
+        <Section3 />
+        <Section4 />
       </div>
     </div>
   </div>
@@ -13,9 +14,10 @@
 <script setup>
   import { onMounted } from 'vue';
 
-  import Section1 from './Section1.vue';
+  import Section1 from './Section1/index.vue';
   import Section2 from './Section2/index.vue';
-  // import Section3 from './Section3.vue';
+  import Section3 from './Section3/index.vue';
+  import Section4 from './Section4/index.vue';
 
   import useScale from '../../hooks/useScale';
 

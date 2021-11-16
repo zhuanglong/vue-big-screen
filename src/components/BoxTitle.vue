@@ -21,8 +21,9 @@ const props = defineProps({
     align-items: center;
     height: 25px;
     .title {
-      color: #c3cbde;
-      font-size: 12px;
+      color: #bcdcff;
+      font-size: 14px;
+      font-weight: bold;
     }
   }
 </style>
