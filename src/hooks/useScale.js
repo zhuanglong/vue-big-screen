@@ -24,7 +24,7 @@ export default function useSize() {
     const scaleRate2 = ww / designWidth;
 
     // 设置缩放
-    appRef.value.style.transform = `scale(${scaleRate1}) translate(-50%, 0%)`;
+    appRef.value.style.transform = `scale(${scaleRate2}) translate(-50%, 0%)`;
   };
 
   const resize = () => {

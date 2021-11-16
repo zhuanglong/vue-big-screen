@@ -119,6 +119,21 @@
   resolved "https://registry.npmmirror.com/@vue/shared/download/@vue/shared-3.2.21.tgz#4cd80c0e62cf65a7adab2449e86b6f0cb33a130b"
   integrity sha1-TNgMDmLPZaetqyRJ6GtvDLM6Ews=
 
+"@vueuse/core@^6.9.0":
+  version "6.9.0"
+  resolved "https://registry.npmmirror.com/@vueuse/core/download/@vueuse/core-6.9.0.tgz#f65057108bbd85cb593a3dfc78a94913c73d2a12"
+  integrity sha512-/KW3x63X+AlpgJIJxdZZFpZ0SorHv+UHv/i4BufZJwv0s8S1o7dqivDz0DcdD+BBlNwLiOu1mjoUl1rodWCLxw==
+  dependencies:
+    "@vueuse/shared" "6.9.0"
+    vue-demi "*"
+
+"@vueuse/shared@6.9.0":
+  version "6.9.0"
+  resolved "https://registry.npmmirror.com/@vueuse/shared/download/@vueuse/shared-6.9.0.tgz#97d4529212e0155284badd89d27b4746815ae197"
+  integrity sha512-LyavYcibfrKO1PIYtJ+JjFwHNVRmxb/i7v4daKKTZv6iKVh/xBD6kpmO392atn1KaUa19m9aGrVNBv4t5lAzJA==
+  dependencies:
+    vue-demi "*"
+
 ansi-regex@^2.0.0:
   version "2.1.1"
   resolved "https://registry.npmmirror.com/ansi-regex/download/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
@@ -1542,6 +1557,11 @@ vite@^2.6.4:
     rollup "^2.57.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+vue-demi@*:
+  version "0.12.1"
+  resolved "https://registry.npmmirror.com/vue-demi/download/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
+  integrity sha1-9+GO++z/0RqwadFHLXoG4xm0F0w=
 
 vue@^3.2.16:
   version "3.2.21"
