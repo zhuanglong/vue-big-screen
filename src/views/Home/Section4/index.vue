@@ -16,6 +16,14 @@
     <div class="chart-wrapper chart-wrapper-down">
       <BoxTitle title="今日线下门户流量" />
       <div class="chart-item">
+        <div class="feedback-wrapper">
+          <Feedback
+            v-for="item in feedbackData"
+            :name="item.name"
+            :value="item.value"
+          />
+        </div>
+        <OfflinePortal :data="offlinePortalData" />
       </div>
     </div>
   </div>
@@ -27,6 +35,8 @@
   import BoxTitle from '../../../components/BoxTitle.vue';
   import BrowseCategories from './BrowseCategories/index.vue';
   import UserIdentityCategory from './UserIdentityCategory/index.vue';
+  import Feedback from './Feedback/index.vue';
+  import OfflinePortal from './OfflinePortal/index.vue';
 
    const userIdentityCategoryData = ref([
     {
@@ -55,6 +65,26 @@
       color: '#C7A530',
     },
   ]);
+
+  const feedbackData = ref([{
+    name: '服务质量',
+    value: 90,
+  }, {
+    name: '交互体验',
+    value: 82,
+  }, {
+    name: '安全防护',
+    value: 85,
+  }]);
+
+  const offlinePortalData = ref({
+    data1: [80, 152, 101, 134, 90, 130],
+    data2: [120, 182, 191, 210, 170, 110],
+    data3: [110, 132, 201, 154, 150, 80],
+    data4: [90, 142, 161, 114, 190, 170],
+    xData: ['9:00', '12:00', '15:00', '18:00', '21:00', '00:00'],
+    barData: [32.2, 60, 32.6, 36.4, 53.3, 35],
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -95,6 +125,13 @@
           display: grid;
           grid-template-columns: 430px;
           grid-template-rows: 170px 285px;
+        }
+
+        .feedback-wrapper {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 15px;
         }
       }
     }
