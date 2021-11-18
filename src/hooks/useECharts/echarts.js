@@ -11,6 +11,8 @@ import {
   MapChart,
   PictorialBarChart,
   RadarChart,
+  LinesChart,
+  EffectScatterChart,
 } from 'echarts/charts';
 
 // 引入标题，提示框，数据集，内置数据转换器等组件，组件后缀都为 Component
@@ -43,6 +45,8 @@ echarts.use([
   MapChart,
   PictorialBarChart,
   RadarChart,
+  LinesChart,
+  EffectScatterChart,
   TitleComponent,
   TooltipComponent,
   GridComponent,
