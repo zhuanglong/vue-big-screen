@@ -4,7 +4,7 @@
       <div>
         <BoxTitle title="关联数据类别分布" />
         <div class="chart-item">
-          <BrowseCategories />
+          <BrowseCategories :data="browseCategoriesData" />
           <img class="earth-gif" src="../../../assets/images/earth-rotate.gif" alt="" />
         </div>
       </div>
@@ -38,7 +38,37 @@
   import Feedback from './Feedback/index.vue';
   import OfflinePortal from './OfflinePortal/index.vue';
 
-   const userIdentityCategoryData = ref([
+  const browseCategoriesData = ref({
+    data: [782, 621.2, 322.1, 525.3, 265, 224],
+    indicator: [
+      {
+        name: '食物',
+        max: 1000,
+      },
+      {
+        name: '娱乐',
+        max: 1000,
+      },
+      {
+        name: '运动',
+        max: 1000,
+      },
+      {
+        name: '家居',
+        max: 1000,
+      },
+      {
+        name: '机械',
+        max: 1000,
+      },
+      {
+        name: '学习',
+        max: 1000,
+      },
+    ],
+  });
+
+  const userIdentityCategoryData = ref([
     {
       name: '公务',
       value: 57,
@@ -96,7 +126,6 @@
 
     .chart-wrapper {
       padding: 10px;
-      // background-color: rgba(19, 25, 47, 0.6);
 
       &.chart-wrapper-up {
         display: grid;

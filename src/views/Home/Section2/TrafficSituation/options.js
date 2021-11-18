@@ -1,6 +1,6 @@
 import echarts from '../../../../hooks/useECharts/echarts';
 
-export const trafficOptions = (params) => ({
+export const trafficSituationOptions = (params) => ({
   title: {
     show: false,
   },

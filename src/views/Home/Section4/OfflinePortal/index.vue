@@ -1,6 +1,6 @@
 <template>
   <div class="chart-OfflinePortal">
-    <div ref="chartRef" class="chart" :style="{ width, height }" />
+    <div ref="chartRef" :style="{ width, height }" />
   </div>
 </template>
 

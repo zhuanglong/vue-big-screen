@@ -1,13 +1,11 @@
 <template>
   <div class="chart-UserSituation">
-    <div class="chart" ref="chartRef" />
   </div>
 </template>
 
 <script setup>
   import { ref } from 'vue';
   import { useECharts } from '../../../../hooks/useECharts';
-  import { userOptions } from './options';
 
   const chartRef = ref();
   const { setOptions } = useECharts(chartRef);
@@ -30,14 +28,8 @@
     ],
   };
 
-  setOptions(userOptions(data));
+  setOptions(data);
 </script>
 
 <style lang="scss" scoped>
-  .chart-UserSituation {
-    .chart {
-      width: 100%;
-      height: 280px;
-    }
-  }
 </style>

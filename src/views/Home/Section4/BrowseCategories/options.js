@@ -1,5 +1,4 @@
-// 关联数据类别
-export const BrowseCategoriesOptions = params => ({
+export const browseCategoriesOptions = params => ({
   radar: {
     center: ['50%', '50%'],
     radius: '70%',
