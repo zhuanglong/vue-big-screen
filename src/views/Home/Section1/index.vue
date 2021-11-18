@@ -1,19 +1,15 @@
 <template>
   <div class="section1-container">
-    <div class="left">数据分析1</div>
+    <div class="left"></div>
     <div class="midden">大数据可视化平台</div>
-    <div class="right">数据分析2</div>
+    <div class="right">
+      <Timing />
+    </div>
   </div>
 </template>
 
-<script>
-  import { defineComponent } from 'vue';
-
-  export default defineComponent({
-    setup() {
-
-    },
-  });
+<script setup>
+  import Timing from './Timing.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -32,7 +28,6 @@
       font-size: 18px;
       text-align: left;
       color: #fff;
-      background-color: #0f1325;
     }
 
     .midden {
@@ -45,10 +40,7 @@
 
     .right {
       padding-right: 20px;
-      font-size: 18px;
       text-align: right;
-      color: #fff;
-      background-color: #0f1325;
     }
   }
 </style>
