@@ -1,6 +1,6 @@
 <template>
   <div class="section3-container">
-    <Map width="100%" height="93%" />
+    <!-- <Map width="100%" height="93%" /> -->
     <div class="chat-group">
       <FlowRate
         v-for="item in flowRateData"
