@@ -1,7 +1,7 @@
 <template>
   <div
     class="UserSituation-table"
-    ref="el"
+    ref="tEl"
     :style="{ width, height }"
   >
     <!-- 表头 -->
@@ -27,12 +27,12 @@
       </template>
     </div>
     <!-- 表体 -->
-    <div class="tbody" ref="tbodyEl">
+    <div class="tbody" ref="tbodyEl" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
       <div
         class="tbody-tr"
         v-for="(row) in tbodyData"
         :key="row[0]._number"
-        :_number="row[0]._number"
+        :num="row[0]._number"
         :style="{
           height: `${row[0]._height}px`,
           lineHeight: `${row[0]._height}px`,
@@ -58,6 +58,8 @@
 </template>
 
 <script setup>
+  // 存在问题
+  // 1、如果总行数为奇数，则奇偶行背景色会有重合，其实这不算bug
   import { ref, defineProps, watch, onUnmounted, onMounted } from 'vue';
   import { useElementSize } from '@vueuse/core';
 
@@ -97,61 +99,41 @@
     },
   });
 
-  const el = ref(null);
+  const tEl = ref(null);
   const tbodyEl = ref(null);
   const theadData = ref([]);
   const tbodyData = ref([]);
   const rowCount = ref(0);
-  const rowCountPrev = ref(0);
 
-  const theadHeight = 35; // 表格头行度
-  let tbodyRowHeight = 0; // 表格内容行高
-  const wait = 2000;
+  const theadHeight = 35; // 表头行度
+  let tbodyRowHeight = 0; // 表体行高
+  let tailIndex = 0;
   let timing = null;
+  const wait = 2000;
 
-  const { height: tableHeight } = useElementSize(el);
+  const { height: tableHeight } = useElementSize(tEl);
 
   // 计算表头数据
   function calcTHeadData(data) {
+    let newData = [];
     if (data.length > 0) {
-      return [
-        {
-          _indexTag: props.tableIndex,
-        },
-        ...data
-      ];
-    } else {
-      return [];
+      newData = [{ _indexTag: props.tableIndex }, ...data];
     }
+    theadData.value = newData;
   }
 
   // 计算表体数据
   function calcTBodyData(data) {
-    tbodyRowHeight = (tableHeight.value - theadHeight) / props.rowNum;
     if (data.length === 0) return;
-    const tailIndex = tbodyData.value.findIndex((item) => item[0]._number === rowCount.value);
-    console.log(tailIndex);
-    const newData = data.map((item, index) => {
+    tbodyRowHeight = (tableHeight.value - theadHeight) / props.rowNum;
+    const newData = data.map((item) => {
       rowCount.value += 1;
-      return [
-        {
-          _number: rowCount.value,
-          _height: tbodyRowHeight,
-        },
-        ...item,
-      ];
+      return [{ _number: rowCount.value, _height: tbodyRowHeight }, ...item];
     });
 
-    // 找到尾部所在的下标
-
-    if (rowCountPrev.value === 0) {
-      tbodyData.value = tbodyData.value.concat(newData);
-    } else {
-      tbodyData.value.splice(tailIndex, 0, ...newData);
-      tbodyData.value = tbodyData.value;
-    }
-
-    rowCountPrev.value = rowCount.value;
+    // console.log(tailIndex, rowCount.value);
+    // 在下标插入新增数据
+    tbodyData.value.splice(tailIndex === 0 ? rowCount.value : tailIndex + 1, 0, ...newData);
   }
 
   // 计算表头的列宽度
@@ -172,41 +154,50 @@
   }
 
   // 循环滚动
-  function loop() {
+  function startLoop() {
     clearLoop();
     timing = setInterval(() => {
       if (tbodyData.value.length === 0) return; // 没有数据
       if (tbodyData.value.length <= props.rowNum) return; // 数据总数大于行数才滚动
       tbodyData.value[0][0]._height = 0; // 第一行设置为0
       setTimeout(() => {
-        // 把第一行移到尾部
+        // 把第一行移到尾部并恢复该行高
         const firstItem = tbodyData.value.splice(0, 1)[0];
         firstItem[0] = { ...firstItem[0], _height: tbodyRowHeight };
         tbodyData.value.push(firstItem);
+
+        tailIndex = tbodyData.value.findIndex((item) => item[0]._number === rowCount.value);
       }, 300);
     }, wait);
   }
 
+  // 关闭循环滚动
   function clearLoop() {
     timing && clearInterval(timing);
+  }
+
+  function handleMouseEnter() {
+    clearLoop();
+  }
+
+  function handleMouseLeave() {
+    startLoop();
   }
 
   watch(
     () => props.data,
     () => {
-      clearLoop();
-      theadData.value = calcTHeadData(props.data.thead);
+      calcTHeadData(props.data.thead);
       calcTBodyData(props.data.tbody);
-      loop();
     },
     { deep: true },
   );
 
   onMounted(() => {
     setTimeout(() => {
-      theadData.value = calcTHeadData(props.data.thead);
+      calcTHeadData(props.data.thead);
       calcTBodyData(props.data.tbody)
-      loop();
+      startLoop();
     });
   });
 
@@ -258,6 +249,7 @@
           .index-tag {
             padding: 2px 5px;
             background-color: rgb(68, 61, 197);
+            border-radius: 2px;
           }
         }
       }

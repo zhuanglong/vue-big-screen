@@ -36,7 +36,7 @@
 
   const userSituationData = ref();
 
-  // setTimeout(() => {
+  setTimeout(() => {
     userSituationData.value = {
       thead: ['用户', '时间', '状态'],
       tbody: [
@@ -54,14 +54,15 @@
         ['用户12', '2020-11-11 12:00', '离线'],
       ],
     };
-  // }, 1000)
+  }, 1000)
 
   let count = 12;
-  setInterval(() => {
-    const data = [];
+  const timer = setInterval(() => {
     count += 1;
-    data.push([`用户${count}`, '2020-11-11 12:00', '离线'])
-    userSituationData.value.tbody = data;
+    userSituationData.value.tbody = [[`用户${count}`, '2020-11-11 12:00', '离线']];
+    if (count === 15) {
+      clearInterval(timer);
+    }
   }, 3000)
 </script>
 
