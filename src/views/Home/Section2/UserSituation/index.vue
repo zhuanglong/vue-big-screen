@@ -19,9 +19,10 @@
         <div
           class="thead-th"
           :style="calcTHeadTHWidth(index)"
-          v-if="tableIndex || index >= 0"
+          v-if="tableIndex || index > 0"
         >
-          {{item}}
+          <span v-if="tableIndex && index === 0">{{item._indexTag}}</span>
+          <span v-else>{{item}}</span>
         </div>
       </template>
     </div>
@@ -29,13 +30,13 @@
     <div class="tbody" ref="tbodyEl">
       <div
         class="tbody-tr"
-        v-for="(row, rowIndex) in tbodyData"
-        :key="rowIndex"
+        v-for="(row) in tbodyData"
+        :key="row[0]._number"
+        :_number="row[0]._number"
         :style="{
-          height: `${tbodyRowHeight}px`,
-          lineHeight: `${tbodyRowHeight}px`,
-          backgroundColor: getBackgroundColor(row[0]),
-          ...loopAnimation(rowIndex, row[0]),
+          height: `${row[0]._height}px`,
+          lineHeight: `${row[0]._height}px`,
+          backgroundColor: getBackgroundColor(row[0]._number),
         }"
       >
         <template
@@ -45,9 +46,10 @@
           <div
             class="tbody-td"
             :style="calcTBodyTDWidth(columnIndex)"
-            v-if="tableIndex || columnIndex >= 0"
+            v-if="tableIndex || columnIndex > 0"
           >
-            <span :class="tableIndex && columnIndex === 0 && 'index-tag'">{{column}}</span>
+            <span class="index-tag" v-if="tableIndex && columnIndex === 0">{{column._number}}</span>
+            <span v-else>{{column}}</span>
           </div>
         </template>
       </div>
@@ -56,7 +58,7 @@
 </template>
 
 <script setup>
-  import { ref, defineProps, watch, onUnmounted } from 'vue';
+  import { ref, defineProps, watch, onUnmounted, onMounted } from 'vue';
   import { useElementSize } from '@vueuse/core';
 
   const props = defineProps({
@@ -96,27 +98,60 @@
   });
 
   const el = ref(null);
-  const tbodyEl = ref(null);;
-  const theadHeight = ref(35); // 表格头行度
-  const tbodyRowHeight = ref(0); // 表格内容行高
+  const tbodyEl = ref(null);
   const theadData = ref([]);
   const tbodyData = ref([]);
-  let timing = null;
+  const rowCount = ref(0);
+  const rowCountPrev = ref(0);
+
+  const theadHeight = 35; // 表格头行度
+  let tbodyRowHeight = 0; // 表格内容行高
   const wait = 2000;
+  let timing = null;
 
   const { height: tableHeight } = useElementSize(el);
 
   // 计算表头数据
   function calcTHeadData(data) {
-    return [props.tableIndex, ...data];
+    if (data.length > 0) {
+      return [
+        {
+          _indexTag: props.tableIndex,
+        },
+        ...data
+      ];
+    } else {
+      return [];
+    }
   }
 
   // 计算表体数据
   function calcTBodyData(data) {
-    const allRows = data.map((item, index) => [index + 1, ...item]);
-    const sliceRows = allRows.slice(0, props.rowNum);
-    tbodyRowHeight.value = (tableHeight.value - theadHeight.value) / sliceRows.length;
-    return allRows;
+    tbodyRowHeight = (tableHeight.value - theadHeight) / props.rowNum;
+    if (data.length === 0) return;
+    const tailIndex = tbodyData.value.findIndex((item) => item[0]._number === rowCount.value);
+    console.log(tailIndex);
+    const newData = data.map((item, index) => {
+      rowCount.value += 1;
+      return [
+        {
+          _number: rowCount.value,
+          _height: tbodyRowHeight,
+        },
+        ...item,
+      ];
+    });
+
+    // 找到尾部所在的下标
+
+    if (rowCountPrev.value === 0) {
+      tbodyData.value = tbodyData.value.concat(newData);
+    } else {
+      tbodyData.value.splice(tailIndex, 0, ...newData);
+      tbodyData.value = tbodyData.value;
+    }
+
+    rowCountPrev.value = rowCount.value;
   }
 
   // 计算表头的列宽度
@@ -138,34 +173,45 @@
 
   // 循环滚动
   function loop() {
-    const newData = tbodyData.value.slice(0);
-    timing && clearInterval(timing);
+    clearLoop();
     timing = setInterval(() => {
-      const firstItem = newData.splice(0, 1)[0];
-      newData.push(firstItem);
-      tbodyData.value = newData.slice(0);
+      if (tbodyData.value.length === 0) return; // 没有数据
+      if (tbodyData.value.length <= props.rowNum) return; // 数据总数大于行数才滚动
+      tbodyData.value[0][0]._height = 0; // 第一行设置为0
+      setTimeout(() => {
+        // 把第一行移到尾部
+        const firstItem = tbodyData.value.splice(0, 1)[0];
+        firstItem[0] = { ...firstItem[0], _height: tbodyRowHeight };
+        tbodyData.value.push(firstItem);
+      }, 300);
     }, wait);
-
-    // console.log(tbodyEl.value.children[0]);
-    // tbodyEl.value.children[0].style.height = 0;
   }
 
-  // 滚动效果
-  function loopAnimation() {
-
+  function clearLoop() {
+    timing && clearInterval(timing);
   }
 
   watch(
-    tableHeight,
+    () => props.data,
     () => {
+      clearLoop();
       theadData.value = calcTHeadData(props.data.thead);
-      tbodyData.value = calcTBodyData(props.data.tbody);
+      calcTBodyData(props.data.tbody);
       loop();
     },
+    { deep: true },
   );
 
+  onMounted(() => {
+    setTimeout(() => {
+      theadData.value = calcTHeadData(props.data.thead);
+      calcTBodyData(props.data.tbody)
+      loop();
+    });
+  });
+
   onUnmounted(() => {
-    timing && clearInterval(timing);
+    clearLoop();
   });
 </script>
 
