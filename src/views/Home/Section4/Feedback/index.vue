@@ -48,7 +48,7 @@
 
     .dis-text {
       color: transparent;
-      font-size: 0.2rem;
+      font-size: 16px;
       font-weight: bold;
       background: linear-gradient(to bottom,#fff,#6176F4);
       -webkit-background-clip: text;

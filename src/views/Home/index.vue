@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="main-view" ref="appRef">
-      <Section1 />
+      <div class="header">
+        <Section1 />
+      </div>
       <div class="body">
         <Section2 />
         <Section3 />

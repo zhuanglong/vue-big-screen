@@ -34,11 +34,12 @@ import {
 } from 'echarts/components';
 
 // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
-import { SVGRenderer } from 'echarts/renderers';
+// SVGRenderer 渲染地图的移动线点太卡了，还是用 CanvasRenderer 吧
+import { CanvasRenderer } from 'echarts/renderers';
 
 // 注册必须的组件
 echarts.use([
-  SVGRenderer,
+  CanvasRenderer,
   BarChart,
   LineChart,
   PieChart,
