@@ -1,11 +1,11 @@
 <template>
   <div class="section2-container">
     <div class="chart-wrapper">
-      <BoxTitle title="今日流量态势" />
+      <BoxTitle title="今日流量态势" iconName="icon-chart-area" />
       <TrafficSituation :data="trafficSituationData" />
     </div>
     <div class="chart-wrapper">
-      <BoxTitle title="用户数据状态" />
+      <BoxTitle title="用户数据状态" iconName="icon-monitoring" />
         <UserSituation
           width="100%"
           height="585px"

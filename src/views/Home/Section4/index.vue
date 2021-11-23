@@ -2,19 +2,19 @@
   <div class="section4-container">
     <div class="chart-wrapper chart-wrapper-up">
       <div>
-        <BoxTitle title="关联数据类别分布" />
+        <BoxTitle title="关联数据类别分布" iconName="icon-layer-group" />
         <div class="chart-item">
           <BrowseCategories :data="browseCategoriesData" />
           <img class="earth-gif" src="../../../assets/images/earth-rotate.gif" alt="" />
         </div>
       </div>
       <div>
-        <BoxTitle title="平均用户类别排布" />
+        <BoxTitle title="平均用户类别排布" iconName="icon-align-left" />
         <UserIdentityCategory :data="userIdentityCategoryData" />
       </div>
     </div>
     <div class="chart-wrapper chart-wrapper-down">
-      <BoxTitle title="今日线下门户流量" />
+      <BoxTitle title="今日线下门户流量" iconName="icon-chart-line" />
       <div class="chart-item">
         <div class="feedback-wrapper">
           <Feedback

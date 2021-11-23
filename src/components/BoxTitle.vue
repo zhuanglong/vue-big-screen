@@ -1,5 +1,6 @@
 <template>
   <div class="BoxTitle-container">
+    <i class="iconfont" :class="iconName" v-if="iconName" />
     <div class="title">{{ title }}</div>
   </div>
 </template>
@@ -10,6 +11,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  iconName: {
+    type: String,
+    default: '',
+  }
 });
 </script>
 
@@ -18,6 +23,13 @@ const props = defineProps({
     display: flex;
     align-items: center;
     height: 25px;
+
+    .iconfont {
+      margin-right: 5px;
+      color: #89e5ff;
+      font-size: 14px;
+    }
+
     .title {
       color: #bcdcff;
       font-size: 14px;
