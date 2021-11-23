@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-  import { ref, defineProps } from 'vue';
+  import { ref } from 'vue';
   import { useECharts } from '../../../../hooks/useECharts';
   import { offlinePortalOptions } from './options';
 

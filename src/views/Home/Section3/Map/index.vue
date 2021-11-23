@@ -6,7 +6,7 @@
 
 <script setup>
   // 存在的问题，影响帧率
-  import { ref, defineProps } from 'vue';
+  import { ref } from 'vue';
   import { useECharts } from '../../../../hooks/useECharts';
   import { mapOptions } from './options';
 

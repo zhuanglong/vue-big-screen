@@ -60,7 +60,8 @@
 <script setup>
   // 存在问题
   // 1、如果总行数为奇数，则奇偶行背景色会有重合，其实这不算bug
-  import { ref, defineProps, watch, onUnmounted, onMounted } from 'vue';
+
+  import { ref, watch, onUnmounted, onMounted } from 'vue';
   import { useElementSize } from '@vueuse/core';
 
   const props = defineProps({
