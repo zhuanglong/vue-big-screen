@@ -6,13 +6,13 @@
     </div>
     <div class="chart-wrapper">
       <BoxTitle title="用户数据状态" iconName="icon-monitoring" />
-        <UserSituation
-          width="100%"
-          height="585px"
-          :data="userSituationData"
-          :columnWidth="['15%', '25%', '40%', '20%']"
-          tableIndex="序号"
-        />
+      <UserSituation
+        width="100%"
+        height="585px"
+        :data="userSituationData"
+        :columnWidth="['15%', '25%', '40%', '20%']"
+        tableIndex="序号"
+      />
     </div>
   </div>
 </template>

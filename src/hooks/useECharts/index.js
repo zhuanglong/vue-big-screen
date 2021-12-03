@@ -21,7 +21,7 @@ export function useECharts(elRef) {
   // 初始化图表
   function initCharts() {
     const el = unref(elRef);
-    if (!el || !unref(el)) {
+    if (!el) {
       return;
     }
 
@@ -35,27 +35,27 @@ export function useECharts(elRef) {
 
   // 设置图表数据
   function setOptions(options, clear = true) {
+    const el = unref(elRef);
     cacheOptions.value = options;
-    if (unref(elRef)?.offsetHeight === 0) {
+
+    if (el && el.offsetHeight === 0) {
       useTimeoutFn(() => {
         setOptions(unref(getOptions));
       }, 30);
       return;
     }
     nextTick(() => {
-      useTimeoutFn(() => {
-        if (!chartInstance) {
-          initCharts();
-          if (!chartInstance) return;
-        }
-        clear && chartInstance?.clear();
-        chartInstance?.setOption(unref(getOptions));
-      }, 30);
+      if (!chartInstance) {
+        initCharts();
+        if (!chartInstance) return;
+      }
+      clear && chartInstance.clear();
+      chartInstance.setOption(unref(getOptions));
     });
   }
 
   function resize() {
-    chartInstance?.resize();
+    chartInstance && chartInstance.resize();
   }
 
   function getInstance() {
