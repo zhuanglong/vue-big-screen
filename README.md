@@ -5,7 +5,12 @@
 - 项目按照 1920*1080 比例设计，支持任何尺寸的同比例缩放。
 - 封装 Echarts 为 **Hook** 组件，**按需引入** Echarts 减少打包体积。
 
-项目展示
+## 预览
+
+- https://vue-big-screen.zeabur.app/
+- https://vue-big-screen.vercel.app/
+
+## 项目展示
 
 ![](https://gitee.com/zloooong/image_store/raw/master/img/202111231443814.png)
 
