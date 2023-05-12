@@ -1,4 +1,4 @@
-# Vue 3 + Vite 数据大屏模板
+# Vue3 + Vite 数据大屏模板
 
 基于 Vue3、Vite、Echarts 的 “**数据大屏模板**”，采用 **CSS3 scale** 动态适配屏幕方案。
 
